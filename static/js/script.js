@@ -1,33 +1,36 @@
 const letsGo = () => {
-    console.log("Initiating Widget...");
-    initializeCalendar();
+    console.log("\nInitiating Widget...\n");
+    $("#room-image").hide();
+    initializeSeafloor();
     specialLobster();
 
     $("#submit-button").on("click", () => {
-        console.log("submit button clicked");
+        console.log("\nsubmit button clicked");
         let start_date = $("#start_date").val();
         let end_date = $("#end_date").val();
         let radioValue = $("input[name='btnradio']:checked").attr("id");
         console.log(start_date);
         console.log(end_date);
-        console.log(radioValue);
+        console.log(radioValue + "\n");
 
-        buildResponse(start_date, end_date, radioValue);
+        $("#room-image").fadeOut(1000, () => {
+            // This callback function is executed after fadeOut completes
+            buildShell(start_date, end_date, radioValue);
+            // fadeIn moved inside the callback of fadeOut in buildShell
+        });
     });
 };
 
-const buildResponse = (start_date, end_date, radioValue) => {
+const buildShell = (start_date, end_date, radioValue) => {
     const resultsDiv = $("#results");
+    const roomImage = $("#room-image");
 
     // Convert the date strings to Date objects
     let startDate = new Date(start_date);
     let endDate = new Date(end_date);
 
-    console.log(radioValue)
-
     // Subtract the dates and convert the result from milliseconds to days
     let stayLength = (endDate - startDate) / (1000 * 60 * 60 * 24);
-
 
 
     resultsDiv.html(`
@@ -46,9 +49,16 @@ const buildResponse = (start_date, end_date, radioValue) => {
         $("#room-type-results").html("The Mona Lisa is the ultimate room for the ultimate Claw. We hope you understand that there is a $1000 surcharge for this room.");
         console.log("suite");
     }
+
+    roomImage.html(`
+    <h1 class="mb-5">This is your room!</h1>
+    <img src="./static/img/${radioValue}.webp" alt="Room Image" class="img-fluid">
+    `);
+
+    $("#room-image").fadeIn(1000);
 };
 
-const initializeCalendar = () => {
+const initializeSeafloor = () => {
     let defaultStartDate = new Date();
     let defaultEndDate = new Date();
     defaultEndDate.setDate(defaultStartDate.getDate() + 1);
@@ -116,12 +126,8 @@ const announceLobster = () => {
 
     const cardFooter = $("#date-select");
     cardFooter.html(`
-        You have chosen to stay for ${stayLength} ${dayPlural}.
+    You have chosen to stay for ${stayLength} ${dayPlural}.
     `);
-}
-
-const flashLobster = () => {
-
 }
 
 letsGo();

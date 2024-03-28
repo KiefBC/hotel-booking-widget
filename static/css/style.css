@@ -8,6 +8,16 @@
     --input-field-color: #D7E8BA;
 }
 
+#submit-button {
+    background-color: var(--main-text-color);
+    color: var(--card-body-color);
+}
+
+#submit-button:hover {
+    background-color: var(--card-body-color);
+    color: var(--main-text-color);
+}
+
 .card-footer, .card-header {
     background-color: var(--card-footer-header);
 }
