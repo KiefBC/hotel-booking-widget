@@ -1,3 +1,6 @@
+/**
+ * Initiates the widget and sets up the event listeners
+ */
 const letsGo = () => {
     console.log("\nInitiating Widget...\n");
     $("#room-image").hide();
@@ -5,22 +8,23 @@ const letsGo = () => {
     specialLobster();
 
     $("#submit-button").on("click", () => {
-        console.log("\nsubmit button clicked");
         let start_date = $("#start_date").val();
         let end_date = $("#end_date").val();
         let radioValue = $("input[name='btnradio']:checked").attr("id");
-        console.log(start_date);
-        console.log(end_date);
-        console.log(radioValue + "\n");
 
         $("#room-image").fadeOut(1000, () => {
             // This callback function is executed after fadeOut completes
             buildShell(start_date, end_date, radioValue);
-            // fadeIn moved inside the callback of fadeOut in buildShell
         });
     });
 };
 
+/**
+ * Builds the shell of the widget based on the user's input
+ * @param start_date - The start date of the user's stay
+ * @param end_date - The end date of the user's stay
+ * @param radioValue - The value of the radio button selected by the user
+ */
 const buildShell = (start_date, end_date, radioValue) => {
     const resultsDiv = $("#results");
     const roomImage = $("#room-image");
@@ -58,6 +62,9 @@ const buildShell = (start_date, end_date, radioValue) => {
     $("#room-image").fadeIn(1000);
 };
 
+/**
+ * Initializes the datepicker for the start and end date inputs
+ */
 const initializeSeafloor = () => {
     let defaultStartDate = new Date();
     let defaultEndDate = new Date();
@@ -85,24 +92,27 @@ const initializeSeafloor = () => {
     });
 }
 
+/**
+ * Changes the background color of the Widget Card Body based on the button clicked
+ */
 const specialLobster = () => {
     $(".btn-group").click((event) => {
-        let newColorVarName;
+        let cssRootVariable;
 
         switch (event.target.id) {
             case "button-single-room":
-                newColorVarName = '--card-color-one';
+                cssRootVariable = '--card-color-one';
                 break;
             case "button-double-room":
-                newColorVarName = '--card-color-two';
+                cssRootVariable = '--card-color-two';
                 break;
             case "button-mona-lisa":
-                newColorVarName = '--card-color-three';
+                cssRootVariable = '--card-color-three';
                 break;
         }
 
-        if (newColorVarName) {
-            let newColor = $(':root').css(newColorVarName);
+        if (cssRootVariable) {
+            let newColor = $(':root').css(cssRootVariable);
             $(".card-body").animate(
                 { backgroundColor: newColor },
                 500
@@ -111,6 +121,9 @@ const specialLobster = () => {
     });
 };
 
+/**
+ * Modifies the Widget Card Footer to display the number of days the user has selected
+ */
 const announceLobster = () => {
     let dayPlural;
 
@@ -130,4 +143,5 @@ const announceLobster = () => {
     `);
 }
 
+// LETS GOOOOO
 letsGo();
