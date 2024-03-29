@@ -56,6 +56,7 @@ const buildShell = (start_date, end_date, radioValue) => {
 
     roomImage.html(`
     <h1 class="mb-5">This is your room!</h1>
+    <h3>$400/night. $${400 * stayLength} total.</h3>
     <img src="./static/img/${radioValue}.webp" alt="Room Image" class="img-fluid">
     `);
 
